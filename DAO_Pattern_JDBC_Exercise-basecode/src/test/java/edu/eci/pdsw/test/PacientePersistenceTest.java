@@ -63,7 +63,7 @@ public class PacientePersistenceTest {
     }
     
     @Test
-    public void databaseConnectionTest() throws IOException, PersistenceException{
+    public void deberiaNoGuardarUsuarioRegistrado() throws IOException, PersistenceException{
         InputStream input = null;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties=new Properties();
@@ -72,10 +72,16 @@ public class PacientePersistenceTest {
         DaoFactory daof=DaoFactory.getInstance(properties);
         
         daof.beginSession();
-                
-        //IMPLEMENTACION DE LAS PRUEBAS
-        fail("Pruebas no implementadas");
-
+        
+        
+        JDBCDaoUsuario du =  (JDBCDaoUsuario) daof.getDaoUsuario();
+        Usuario us = new Usuario("Andres Martinez", "andres@gmail.com");
+        du.save(us);
+        try {
+            du.save(us);
+        } catch (Exception e) {
+            assertEquals(e.getMessage(), "El usuario ya se encuentra en la Base De Datos.");
+        }
 
         daof.commitTransaction();
         daof.endSession();        
