@@ -17,9 +17,10 @@ package edu.eci.pdsw.test;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import edu.eci.pdsw.samples.entities.Usuario;
-import edu.eci.pdsw.samples.persistence.DaoFactory;
-import edu.eci.pdsw.samples.persistence.PersistenceException;
+import edu.eci.pdsw.samples.entities.*;
+import edu.eci.pdsw.samples.persistence.*;
+import edu.eci.pdsw.samples.persistence.jdbcimpl.*;
+import static java.awt.PageAttributes.MediaType.D;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -39,6 +40,26 @@ public class PacientePersistenceTest {
     
     @Before
     public void setUp() {
+    }
+    
+    @Test
+    public void deberiaGuardarUsuarioNuevo() throws IOException, PersistenceException{
+        InputStream input = null;
+        input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
+        Properties properties=new Properties();
+        properties.load(input);
+        
+        DaoFactory daof=DaoFactory.getInstance(properties);
+        
+        daof.beginSession();
+        
+        
+        JDBCDaoUsuario du =  (JDBCDaoUsuario) daof.getDaoUsuario();
+        Usuario us = new Usuario(du.load(email), nombre)
+        du.save(p);
+
+        daof.commitTransaction();
+        daof.endSession();        
     }
     
     @Test

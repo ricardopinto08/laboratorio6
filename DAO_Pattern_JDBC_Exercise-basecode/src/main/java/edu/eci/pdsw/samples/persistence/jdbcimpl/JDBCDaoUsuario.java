@@ -42,7 +42,7 @@ public class JDBCDaoUsuario implements DaoUsuario {
 
     @Override
     public Usuario load(String email) throws PersistenceException {
-        PreparedStatement ps;        
+        PreparedStatement ps;  
         /*try {
         
         
