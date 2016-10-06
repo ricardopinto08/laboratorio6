@@ -55,9 +55,15 @@ public class JDBCDaoUsuario implements DaoUsuario {
 
     @Override
     public void save(Usuario u) throws PersistenceException {
-        PreparedStatement ps;
-
-        //throw new RuntimeException("No se ha implementado el metodo 'save' del DAOPUsuarioJDBC");
+        String sentencia = "INSERT INTO USUARIOS(email, nombre)" + " VALUES(?,?)";        
+        try {
+            PreparedStatement ps = con.prepareStatement(sentencia);
+            ps.setString(1, u.getEmail());
+            ps.setString(2, u.getNombre());
+            ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCDaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

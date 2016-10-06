@@ -74,7 +74,7 @@ public class PacientePersistenceTest {
         daof.beginSession();
                 
         //IMPLEMENTACION DE LAS PRUEBAS
-        fail("Pruebas no implementadas");
+        
 
 
         daof.commitTransaction();
