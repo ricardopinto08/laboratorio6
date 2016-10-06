@@ -44,7 +44,7 @@ public class JDBCDaoUsuario implements DaoUsuario {
     public Usuario load(String email) throws PersistenceException {
         PreparedStatement ps;  
         /*try {
-        
+        //Hola
         
           
         } catch (SQLException ex) {
