@@ -55,8 +55,8 @@ public class PacientePersistenceTest {
         
         
         JDBCDaoUsuario du =  (JDBCDaoUsuario) daof.getDaoUsuario();
-        Usuario us = new Usuario(du.load(email), nombre)
-        du.save(p);
+        Usuario us = new Usuario("Andres Martinez", "andres@gmail.com");
+        du.save(us);
 
         daof.commitTransaction();
         daof.endSession();        
