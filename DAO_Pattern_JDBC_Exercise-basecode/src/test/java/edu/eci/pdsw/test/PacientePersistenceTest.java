@@ -52,34 +52,17 @@ public class PacientePersistenceTest {
         DaoFactory daof=DaoFactory.getInstance(properties);
         
         daof.beginSession();
-        
-        
+                
         JDBCDaoUsuario du =  (JDBCDaoUsuario) daof.getDaoUsuario();
-        Usuario us = new Usuario(du.load(email), nombre)
-        du.save(p);
+        
+        Usuario us = new Usuario("usuarioNuevo@gmail.com", "Usuario interesante");
+        du.save(us);
 
         daof.commitTransaction();
         daof.endSession();        
     }
     
-    @Test
-    public void databaseConnectionTest() throws IOException, PersistenceException{
-        InputStream input = null;
-        input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
-        Properties properties=new Properties();
-        properties.load(input);
-        
-        DaoFactory daof=DaoFactory.getInstance(properties);
-        
-        daof.beginSession();
-                
-        //IMPLEMENTACION DE LAS PRUEBAS
-        fail("Pruebas no implementadas");
-
-
-        daof.commitTransaction();
-        daof.endSession();        
-    }
+    
     
     
 }
