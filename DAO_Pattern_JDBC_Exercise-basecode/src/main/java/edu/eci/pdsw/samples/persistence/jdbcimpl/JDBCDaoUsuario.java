@@ -42,15 +42,24 @@ public class JDBCDaoUsuario implements DaoUsuario {
 
     @Override
     public Usuario load(String email) throws PersistenceException {
-        PreparedStatement ps;  
-        /*try {
-        //Hola
-        
-          
-        } catch (SQLException ex) {
+        try {
+        PreparedStatement ps=null;  
+        String loadUs = "SELECT * FROM USUARIOS WHERE email= ?";
+        ps = con.prepareStatement(loadUs);
+        ps.setString(1, email);
+        ResultSet rs= ps.executeQuery();
+        Usuario us= null;
+        String n="";
+        while (rs.next()) {
+            n = rs.getString("nombre");
+        }
+        if(n.length()!=0){
+            us = new Usuario(email,n);
+        } 
+        return us;
+        }catch (SQLException ex) {
             throw new PersistenceException("An error ocurred while loading "+email,ex);
-        }*/
-        throw new RuntimeException("No se ha implementado el metodo 'load' del DAOUsuarioJDBC");
+        }
     }
 
     @Override
@@ -60,9 +69,10 @@ public class JDBCDaoUsuario implements DaoUsuario {
             PreparedStatement ps = con.prepareStatement(sentencia);
             ps.setString(1, u.getEmail());
             ps.setString(2, u.getNombre());
-            ps.executeQuery();
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(JDBCDaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PersistenceException("El usuario ya se encuentra en la Base De Datos.");
         }
 
     }

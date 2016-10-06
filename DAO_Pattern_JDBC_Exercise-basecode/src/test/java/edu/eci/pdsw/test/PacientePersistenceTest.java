@@ -49,15 +49,15 @@ public class PacientePersistenceTest {
         Properties properties=new Properties();
         properties.load(input);
         
-        DaoFactory daof=DaoFactory.getInstance(properties);
+         DaoFactory daof=DaoFactory.getInstance(properties);
         
         daof.beginSession();
         
-        
-        JDBCDaoUsuario du =  (JDBCDaoUsuario) daof.getDaoUsuario();
-        Usuario us = new Usuario("Andres Martinez", "andres@gmail.com");
+        DaoUsuario du = daof.getDaoUsuario();
+        Usuario us = new Usuario("andrees@gmail.com", "Andres Martinez");
         du.save(us);
-
+        Usuario u2=du.load("andrees@gmail.com");
+        assertEquals(us.getNombre(), u2.getNombre());
         daof.commitTransaction();
         daof.endSession();        
     }
@@ -73,7 +73,7 @@ public class PacientePersistenceTest {
         
         daof.beginSession();
         JDBCDaoUsuario du =  (JDBCDaoUsuario) daof.getDaoUsuario();
-        Usuario us = new Usuario("Andres Martinez", "andres@gmail.com");
+        Usuario us = new Usuario("andres@gmail.com", "Andres Martinez");
         du.save(us);
         try {
             du.save(us);
